@@ -11,3 +11,139 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #bbbb92;
+}
+
+nav{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  padding: 40px;
+  background: #b0b07d;
+}
+
+.header-wrapper{
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.menu-title{
+  padding: 30px 50px;
+  font-weight: bold;
+  color: #3d2817;
+}
+
+.logo{
+  color: #3d2817;
+  background: #b0b07d;
+}
+
+nav a{
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  background: #b0b07d;
+}
+
+.descrip-story{
+  color: white;
+  font-size: 20px;
+  padding: 30px;
+  text-align: center;
+}
+
+.descrip-title{
+  color: white;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+.container{
+  max-width: 960px;
+  margin: 0 auto;
+}
+
+.row{
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0 -15px;
+}
+
+.columns{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.info-link{
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.columns h3{
+  color: white;
+}
+
+.columns img{
+  border-radius: 10px;
+}
+
+header{
+  padding: 30px;
+  background: #b0b07d;
+}
+
+footer{
+  padding: 30px;
+  background: #b0b07d;
+}
+
+.back-btn{
+  padding: 5px;
+  margin: 15px;
+  border-radius: 5px;
+}
+
+.mealinfo-wrapper{
+  padding: 30px;
+}
+
+.mealinfo-wrapper h2, img{
+  border-radius: 10px;
+  margin: 15px;
+}
+
+.ingredient-wrapper{
+  display: flex;
+}
+
+.meal-wrapper{
+  display: flex;
+}
+
+.ingredient-wrapper a{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: whitesmoke;
+  gap: 20px;
+  margin: 15px;
+}
+
+.col-4{
+  width: 33.3333%;
+}
