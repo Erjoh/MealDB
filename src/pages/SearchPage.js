@@ -21,7 +21,7 @@ const SearchPage = () => {
                         return (
                             <div className={'col-4'} key={meal.idMeal}>
                                 <Link to={`/info/${meal.idMeal}`} className={'info-link'}>
-                                    <h3>{meal.strMeal}</h3>
+                                    {/*<h3>{meal.strMeal}</h3>*/}
                                     <img width={'300px'} src={meal.strMealThumb} alt={meal.strMeal}/>
                                 </Link>
                             </div>
