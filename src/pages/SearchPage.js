@@ -1,33 +1,47 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {Link, useParams} from "react-router-dom";
-import axios from "axios";
 import Layout from "../components/Layout/Layout";
-import Col from "react-bootstrap/Col";
+import {useDispatch, useSelector} from "react-redux";
+import NotFound from "../components/NotFound";
+import {getSearch} from "../redux/store/mealSlice";
 
 const SearchPage = () => {
     const {name} = useParams()
-    const [data, setData] = useState()
+    const meals = useSelector(state => state.meals.search)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        axios(`https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`)
-            .then(res => setData(res.data))
-            .catch(err => console.log(err))
-    }, [name])
+        dispatch(getSearch(name))
+    }, [dispatch, name])
+
+    if (meals === null) {
+        return <NotFound />
+    }
     return (
         <Layout>
-            <div className={'row'}>
-                {
-                    data?.meals.map(meal => {
-                        return (
-                            <div className={'col-4'} key={meal.idMeal}>
-                                <Link to={`/info/${meal.idMeal}`} className={'info-link'}>
-                                    {/*<h3>{meal.strMeal}</h3>*/}
-                                    <img width={'300px'} src={meal.strMealThumb} alt={meal.strMeal}/>
-                                </Link>
-                            </div>
-                        )
-                    })
-                }
+            <div className="container">
+                <div className={'row'}>
+                    {
+                        meals.map(meal => {
+                            return (
+                                <div className={'col-4'} key={meal.idMeal}>
+                                    <Link to={`/info/${meal.idMeal}`} className={'info-link'}
+                                          style={{display: 'block', textAlign: 'center'}}>
+                                        <h3 style={{
+                                            margin: '0',
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            maxHeight: '2.4em',
+                                            color: '#ffffff',
+                                        }}>{meal.strMeal}</h3>
+                                        <img src={meal.strMealThumb} alt={meal.strMeal} style={{width: '250px'}}/>
+                                    </Link>
+                                </div>
+                            )
+                        })
+                    }
+                </div>
             </div>
         </Layout>
     );

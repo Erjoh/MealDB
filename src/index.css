@@ -1,3 +1,10 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #bbbb92;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -12,11 +19,9 @@ code {
     monospace;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  background: #bbbb92;
+main{
+  min-height: 100vh;
+  padding: 30px;
 }
 
 nav{
@@ -28,10 +33,26 @@ nav{
   background: #b0b07d;
 }
 
-.header-wrapper{
-  display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+.header-wrapper a{
+  text-decoration: none;
+  background: #b0b07d;
+}
+
+.header-search{
+  border-radius: 5px 0 0 5px;
+  border: 1px solid wheat;
+  padding: 5px;
+}
+
+.header-search:focus {
+  outline: none;
+}
+
+.header-btn{
+  border-radius: 0 5px 5px 0;
+  border: 1px solid wheat;
+  padding: 5px;
+  color: #3d2817;
 }
 
 .menu-title{
@@ -78,14 +99,6 @@ nav a{
   margin: 0 -15px;
 }
 
-.columns{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  padding: 20px;
-}
-
 .info-link{
   text-decoration: none;
   display: flex;
@@ -93,17 +106,12 @@ nav a{
   align-items: center;
 }
 
-.columns h3{
-  color: white;
-}
-
-.columns img{
-  border-radius: 10px;
-}
-
 header{
   padding: 30px;
   background: #b0b07d;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
 }
 
 footer{
@@ -146,4 +154,48 @@ footer{
 
 .col-4{
   width: 33.3333%;
+}
+
+.loader {
+  display: block;
+  z-index: 99;
+  margin-top: 40vh;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100px;
+  height: 100px;
+  border: 3px solid white;
+  border-radius: 50%;
+
+  animation: spin 7s ease-in-out;
+  animation-iteration-count: infinite;
+  transition-duration: 0.1s;
+}
+
+.loader:hover {
+  scale: 0.95;
+}
+
+.loader:active {
+  scale: 1.2;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+    border-bottom: solid 3px transparent;
+    border-top: solid 3px transparent;
+  }
+  50% {
+    transform: rotate(1800deg);
+    border: 3px solid white;
+    border-left: solid 3px transparent;
+    border-right: solid 3px transparent;
+  }
+  100% {
+    /*Reversed spinning*/
+    transform: rotate(0deg);
+    border-bottom: solid 3px transparent;
+    border-top: solid 3px transparent;
+  }
 }

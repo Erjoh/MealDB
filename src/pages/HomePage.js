@@ -1,42 +1,50 @@
-import React, {useEffect, useState} from 'react';
-import Header from "../components/Header";
-import axios from "axios";
+import React, {useEffect} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
 import {Link} from "react-router-dom";
-import MealInfo from "./MealInfo";
 import Layout from "../components/Layout/Layout";
+import {useDispatch, useSelector} from "react-redux";
+import NotFound from "../components/NotFound";
+import {getMeals} from "../redux/store/mealSlice";
 
 const HomePage = () => {
-    const [meals, setMeals] = useState([])
+    const dispatch = useDispatch()
+    const meals = useSelector(state => state.meals.meals)
 
     useEffect(() => {
-        axios('https://www.themealdb.com/api/json/v2/1/randomselection.php')
-            .then(res => setMeals(res.data.meals))
-            .catch(err => console.log(err))
-    }, [])
+        dispatch(getMeals());
+    }, [dispatch])
+
+    if (meals === null) {
+        return <NotFound />
+    }
+
     return (
         <Layout>
-            <h3 className={'menu-title'}>Our Menu</h3>
-            <Container className={'container'}>
-                <Row className={'row'}>
+            <div className={'container'}>
+                <h3 className={'menu-title'}>Our Menu</h3>
+                <div className={'row'}>
                     {
                         meals.map(meal => {
                             return (
-                                <Col className={'columns'} xs={12} md={6} key={meal.idMeal}>
-                                    <Link to={`/info/${meal.idMeal}`} className={'info-link'}>
-                                        <h3>{meal.strMeal}</h3>
-                                        <img width={'300px'} src={meal.strMealThumb} alt={meal.strMeal}/>
+                                <div className={'col-4'} key={meal.idMeal}>
+                                    <Link to={`/info/${meal.idMeal}`} className={'info-link'}
+                                          style={{display: 'block', textAlign: 'center'}}>
+                                        <h3 style={{
+                                            margin: '0',
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            maxHeight: '2.4em',
+                                            color: '#ffffff',
+                                        }}>{meal.strMeal}</h3>
+                                        <img src={meal.strMealThumb} alt={meal.strMeal} style={{width: '250px'}}/>
                                     </Link>
-                                </Col>
-
+                                </div>
                             )
                         })
                     }
-                </Row>
-            </Container>
+                </div>
+            </div>
         </Layout>
     );
 };

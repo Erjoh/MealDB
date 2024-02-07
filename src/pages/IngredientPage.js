@@ -1,26 +1,52 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import Layout from "../components/Layout/Layout";
 import {Link, useNavigate, useParams} from "react-router-dom";
-import axios from "axios";
+import NotFound from "../components/NotFound";
+import {useDispatch, useSelector} from "react-redux";
+import Loading from "./Loading";
+import {getIngredient} from "../redux/store/mealSlice";
 
 const IngredientPage = () => {
-    const [meal, setMeal] = useState([])
+    const meals = useSelector(state => state.meals.ingredient)
     const {name} = useParams()
     const navigate = useNavigate()
+    const dispatch = useDispatch()
 
     useEffect(() => {
-        axios(`http://www.themealdb.com/api/json/v1/1/lookup.php?i=${name}`)
-            .then(({data}) => setMeal(data.meals[0]) )
-    }, [name])
+        dispatch(getIngredient(name))
+    }, [dispatch, name])
+
+    if (meals === null) {
+        return <NotFound />
+    }
+
     return (
         <Layout>
-            <div>
-                <button onClick={() => navigate('/')}>Back to main menu</button>
-                <div>
-                    <Link to={`/info/${meal.idMeal}`} className={'info-link'}>
-                        <h3>{meal.strMeal}</h3>
-                        <img width={'300px'} src={meal.strMealThumb} alt={meal.strMeal}/>
-                    </Link>
+            <div className={'container'}>
+                <button className='back-btn' onClick={() => navigate(-1)}>
+                    Back
+                </button>
+                <div className={'row'}>
+                    {
+                        meals.map(meal => {
+                            return (
+                                <div className={'col-4'} key={meal.idMeal}>
+                                    <Link to={`/info/${meal.idMeal}`} className={'info-link'}
+                                          style={{display: 'block', textAlign: 'center'}}>
+                                        <h3 style={{
+                                            margin: '0',
+                                            whiteSpace: 'nowrap',
+                                            overflow: 'hidden',
+                                            textOverflow: 'ellipsis',
+                                            color: '#ffffff',
+                                            maxHeight: '2.4em',
+                                        }}>{meal.strMeal}</h3>
+                                        <img src={meal.strMealThumb} alt={meal.strMeal} style={{width: '250px'}}/>
+                                    </Link>
+                                </div>
+                            )
+                        })
+                    }
                 </div>
             </div>
         </Layout>
